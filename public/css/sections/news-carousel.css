@@ -1,0 +1,10 @@
+/* line 2, ../../sass/sections/news-carousel.scss */
+.news-carousel {
+  margin: 60px 0;
+  display: inline-block !important;
+}
+
+/* line 8, ../../sass/sections/news-carousel.scss */
+.news.no-desc {
+  margin: 10px 0 60px 0px;
+}
