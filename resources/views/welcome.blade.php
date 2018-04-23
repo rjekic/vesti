@@ -89,22 +89,22 @@
 
 
 			<!-- Profili lista -->
-			<!-- <div class="cat blue">
+			<div class="cat blue">
 				<h2>Profili</h2>
 			</div>
 			
-			@include('partials.sections.profiles-list') -->
+			@include('partials.sections.profiles-list')
 
 			<!-- /Profili lista -->
 
 
 
 			<!-- Profil single -->
-			<!-- <div class="cat blue">
+			<div class="cat blue">
 				<h2>Profil</h2>
 			</div>
 			
-			@include('partials.partials.profile-single') -->
+			@include('partials.partials.profile-single')
 			<!-- /Profil single -->
 
 

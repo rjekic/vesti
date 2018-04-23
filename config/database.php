@@ -52,6 +52,7 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+            //'unix_socket'   => env('UNIX_SOCKET',    '/Applications/MAMP/tmp/mysql/mysql.sock'),
         ],
 
         'pgsql' => [

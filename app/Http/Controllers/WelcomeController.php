@@ -9,25 +9,25 @@ use App\Vesti;
 class WelcomeController extends Controller
 {
 	private $perpage = 9;
-	
+
      public function index()
     {
-		
+
 		$vesti = Vesti::orderBy('id', 'DESC')->paginate($this->perpage);
 		$newsticker = Vesti::orderBy('id', 'DESC')->paginate($this->perpage);
-		$vreme = file_get_contents('https://www.weather2umbrella.com/vremenska-prognoza-valjevo-serbia-sr/trenutno');
-		$crawler = new Crawler($vreme);
-		$temperatura = $crawler->filterXPath('//*[@id="current_weather_shadow_box"]/div/div[2]/div[2]/div[1]/div[1]/div[3]/p')->text();
-		$slika = $crawler->filterXPath('//*[@id="current_weather_shadow_box"]/div/div[2]/div[2]/div[1]/div[1]/div[1]/a/img/@src')->text();
-        return view('welcome',['vesti' => $vesti,'search'=>"", 'ticker' => $newsticker, 'temperatura' => $temperatura, 'slika' => $slika]);
+		//$vreme = file_get_contents('https://www.weather2umbrella.com/vremenska-prognoza-valjevo-serbia-sr/trenutno');
+		//$crawler = new Crawler($vreme);
+		//$temperatura = $crawler->filterXPath('//*[@id="current_weather_shadow_box"]/div/div[2]/div[2]/div[1]/div[1]/div[3]/p')->text();
+		//$slika = $crawler->filterXPath('//*[@id="current_weather_shadow_box"]/div/div[2]/div[2]/div[1]/div[1]/div[1]/a/img/@src')->text();
+        return view('welcome',['vesti' => $vesti,'search'=>"", 'ticker' => $newsticker, 'temperatura' => '', 'slika' => '']);
 
     }
-	
+
 	public function search(Request $request)
     {
-		
+
 		$search = $request->input('search');
-		
+
 		$vesti = Vesti::where("naslov", "LIKE",'%'.$search.'%')
 		->orwhere("text", "LIKE",'%'.$search.'%')
 		->orwhere("datum", "LIKE",'%'.$search.'%')
@@ -37,8 +37,8 @@ class WelcomeController extends Controller
 		//ovu su najnovije vesti ya sidebar, da pretraga ne bi uticala na njih
 		$newsticker = Vesti::orderBy('id', 'DESC')->paginate($this->perpage);
 
-		return view('welcome', ['vesti' => $vesti,'search'=>$search, 'ticker' => $newsticker]);
-		
+		return view('welcome', ['vesti' => $vesti,'search'=>$search, 'ticker' => $newsticker, 'slika' => '', 'temperatura' => '']);
+
 
     }
 
