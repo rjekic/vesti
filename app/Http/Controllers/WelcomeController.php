@@ -14,7 +14,7 @@ class WelcomeController extends Controller
      public function index()
     {
 		$this->getWeather();
-		$vesti = Vesti::orderBy('id', 'DESC')->paginate($this->perpage);
+		$vesti = Vesti::orderBy('datum', 'DESC')->paginate($this->perpage);
 		return view('welcome',['vesti' => $vesti,'search'=>"", 'ticker' => $vesti, 'temperatura' => $this->temperatura, 'slika' => $this->slika ]);
 
     }
@@ -28,10 +28,10 @@ class WelcomeController extends Controller
 		->orwhere("text", "LIKE",'%'.$search.'%')
 		->orwhere("datum", "LIKE",'%'.$search.'%')
 		->orwhere("izvor", "LIKE",'%'.$search.'%')
-		->orderBy('id', 'DESC')->paginate($this->perpage);
+		->orderBy('datum', 'DESC')->paginate($this->perpage);
 
 		//ovu su najnovije vesti ya sidebar, da pretraga ne bi uticala na njih
-		$newsticker = Vesti::orderBy('id', 'DESC')->paginate($this->perpage);
+		$newsticker = Vesti::orderBy('datum', 'DESC')->paginate($this->perpage);
 		$this->getWeather();
 		
 		return view('welcome', ['vesti' => $vesti,'search'=>$search, 'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);

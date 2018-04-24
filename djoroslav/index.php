@@ -806,7 +806,7 @@ function input($data){
 
 	$data = trim($data);
 	$data = stripslashes($data);
-	$data = htmlspecialchars($data);
+	$data = htmlspecialchars_decode($data);
 
 	return $data;
 }
@@ -814,11 +814,11 @@ foreach($artikli_sve as $artikal){
 
 		$naslov = input($artikal['naslov']);
 		$link = input($artikal['link']);
-		$image = $artikal['image'];
+		$image = input($artikal['image']);
 		$text = input($artikal['text']);
-		$datum = date("d.m.Y H:i",input($artikal['datum'])) ;
+		$datum = input($artikal['datum']);
 		$izvor = input($artikal['izvor']);
-
+	
 	    $sql="SELECT * from vestis WHERE naslov LIKE '%$naslov%'";
         $result = mysqli_query($conn,$sql);
         $count_row = $result->num_rows;

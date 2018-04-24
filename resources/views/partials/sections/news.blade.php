@@ -20,7 +20,7 @@
 				</a>
 				<span class="category"><a href="#">{{ $vest->izvor }}</a></span>
 			</div>
-			<div class="meta"><span class="date">{{ $vest->datum }}</span>|<span class="views">351</span> pregleda</div>
+			<div class="meta"><span class="date">{{ date('d.m.Y H:i', $vest->datum) }}</span>|<span class="views">351</span> pregleda</div>
 			<h2><a href="{{ $vest->link }}">{{ $vest->naslov }}</a></h2>
 			<p>{{ \Illuminate\Support\Str::words($vest->text, 60, '...') }}</p>
 		</article>
