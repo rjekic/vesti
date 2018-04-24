@@ -13,7 +13,7 @@ class connection
     public function __construct()
     {
        // $this->connection = new mysqli('localhost', 'admin_newb', 'tkpxKWn8Mt', 'admin_agregator');
-	    $this->connection = new mysqli('localhost', 'root', 'root', 'agregator');
+	    $this->connection = new mysqli('localhost', 'admin_newb', 'tkpxKWn8Mt', 'admin_agregator');
 
         if ($this->connection->connect_error) {
             die("Greska pri konekciji: " . $this->connection->connect_error);

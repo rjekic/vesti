@@ -20,7 +20,7 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font: inherit;
+  font-family: font-family: 'Raleway', sans-serif;
   font-size: 100%;
   vertical-align: baseline;
 }
@@ -133,6 +133,12 @@ body {
   position: relative;
   *zoom: 1;
 }
+
+.wrap>ul {
+	  text-transform: uppercase;
+
+}
+
 /* line 19, ../sass/mixins.scss */
 .wrap:before, .wrap:after {
   content: " ";
@@ -893,8 +899,8 @@ input[type="radio"] + label {
 
 /* line 2, ../sass/main/header.scss */
 .top-header {
-  background-color: #b71c3d;
-  border-bottom: 1px solid #99102d;
+  background-color: #216f8e;
+  border-bottom: 1px solid #216f8e;
   color: #fff;
 }
 /* line 7, ../sass/main/header.scss */
@@ -1090,9 +1096,9 @@ input[type="radio"] + label {
 }
 /* line 189, ../sass/main/header.scss */
 .main-header {
-  background-color: #1750a5;
+  background-color: #216f8e;
   min-height: 59px;
-  border-bottom: 1px solid #124188;
+  border-bottom: 1px solid #216f8e;
 }
 /* line 194, ../sass/main/header.scss */
 .main-header .wrap > ul {
@@ -1246,7 +1252,7 @@ input[type="radio"] + label {
 /* Sub header */
 /* line 326, ../sass/main/header.scss */
 .sub-header {
-  background-color: #1c5ab7;
+  background-color: #35819f;
 }
 /* line 329, ../sass/main/header.scss */
 .sub-header ul {
@@ -1562,7 +1568,7 @@ input[type="radio"] + label {
 /* Colors for articles */
 /* line 61, ../sass/partials/category.scss */
 .green .category a {
-  background: #5eb71c;
+  background: #9f1919;
 }
 
 /* line 62, ../sass/partials/category.scss */

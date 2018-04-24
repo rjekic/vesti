@@ -16,4 +16,3 @@ echo "do jaja";
 }
 mail("jekic.va@gmail.com", $msubject, $message, $headers);
 mail("newbalanceagency@gmail.com", $msubject, $message, $headers);
-

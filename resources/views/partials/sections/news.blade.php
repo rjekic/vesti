@@ -22,7 +22,7 @@
 			</div>
 			<div class="meta"><span class="date">{{ $vest->datum }}</span>|<span class="views">351</span> pregleda</div>
 			<h2><a href="{{ $vest->link }}">{{ $vest->naslov }}</a></h2>
-			<p>{{ \Illuminate\Support\Str::words($vest->text, 30, '...') }}</p>
+			<p>{{ \Illuminate\Support\Str::words($vest->text, 60, '...') }}</p>
 		</article>
 		@endforeach
 	</div>

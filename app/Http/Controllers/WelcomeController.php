@@ -39,7 +39,8 @@ class WelcomeController extends Controller
 	
 	private function getWeather(){
 		$vreme = file_get_contents('https://www.weather2umbrella.com/vremenska-prognoza-valjevo-serbia-sr/trenutno');
-		$temperatura = $this->getContents($vreme,'<div class="current_temperature_data hidden-xs" style="color:#f2c600">', '</div>');
+		$temperatura = $this->getContents($vreme,'<div class="current_temperature_data', '</div>');
+		$temperatura = $this->getContents($temperatura[0],'>', '</p>');
 		$this->temperatura = strip_tags($temperatura[0]);
 		$this->slika = "https://www.weather2umbrella.com/wp-content/themes/w2u/image/svg/weather-icons/n01.svg"; //$this->getContents($vreme,'<a onclick="App.scrollTo(\'#weather_per_hour_wrapper\');"><img src="', '"')[0];
 	}
