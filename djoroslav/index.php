@@ -124,6 +124,7 @@ foreach($linkovi as $link){
 		}
 	}
 
+
 	/* Vamedia */
 	if (strpos($link, 'vamedia') !== false) {
 
@@ -167,28 +168,28 @@ foreach($linkovi as $link){
 			$ceo_text_link = $link.$ceo_text_link[0];
 
 			$ceo_text = @file_get_contents($ceo_text_link);
-			$ceo_text = getContents($ceo_text, '<div class="item-page">', '<div class="roksocialbuttons addthis_toolbox  "');
+			$ceo_text = getContents($ceo_text, '<div class="item-page">', 'class="roksocialbuttons addthis_toolbox  "');
 			if(!empty($ceo_text)){
 			$ceo_text = $ceo_text[0];
-
+			
+			$naslov = getContents($ceo_text, '>', '</a>')[0];
+			$naslov = strip_tags($naslov);
+			$naslov = trim(preg_replace('/\s\s+/', '', $naslov));
+			
 			$datum = getContents($ceo_text, '<div class="rt-date-posted">', '</div>');
 			if(!empty($datum)){
 
 			$datum = vamediadatum($datum[0]);
 			$time = strtotime($datum);
 
-			$text1 = getContents($ceo_text, '<p>', '</p>');
+			$text1 = getContents($ceo_text, '<p>', '<div');
 			if(!empty($text1)){
 			$text = "";
 			foreach($text1 as $tx){
 				$text .= $tx;
 			}
 			$text = strip_tags($text);
-
 			$text = trim(preg_replace('/\s\s+/', '', $text));
-			$naslov = getContents($article, '<span class="feature-title">', '</span>')[0];
-			$naslov = trim(preg_replace('/\s\s+/', '', $naslov));
-			$naslov = strip_tags($naslov);
 
 			array_push($artikli_sve,array(
 
@@ -229,16 +230,20 @@ foreach($linkovi as $link){
 			$ceo_text_link = $link.$ceo_text_link[0];
 
 			$ceo_text = @file_get_contents($ceo_text_link);
-			$ceo_text = getContents($ceo_text, '<div class="item-page">', '<div class="roksocialbuttons addthis_toolbox  "');
+			$ceo_text = getContents($ceo_text, '<div class="item-page">', 'class="roksocialbuttons addthis_toolbox  "');
 			if(!empty($ceo_text)){
 			$ceo_text = $ceo_text[0];
-
+			
+			$naslov = getContents($ceo_text, '>', '</a>')[0];
+			$naslov = strip_tags($naslov);
+			$naslov = trim(preg_replace('/\s\s+/', '', $naslov));
+			
 			$datum = getContents($ceo_text, '<div class="rt-date-posted">', '</div>');
 			if(!empty($datum)){
 			$datum = vamediadatum($datum[0]);
 			$time = strtotime($datum);
 
-			$text1 = getContents($ceo_text, '<p>', '</p>');
+			$text1 = getContents($ceo_text, '<p>', '<div');
 			if(!empty($text1)){
 			$text = "";
 			foreach($text1 as $tx){
@@ -246,11 +251,8 @@ foreach($linkovi as $link){
 
 			}
 			$text = strip_tags($text);
-
 			$text = trim(preg_replace('/\s\s+/', '', $text));
-			$naslov = getContents($article, '<p>', '</p>')[0];
-			$naslov = trim(preg_replace('/\s\s+/', '', $naslov));
-			$naslov = strip_tags($naslov);
+
 			array_push($artikli_sve,array(
 
 				"link" => $ceo_text_link,
@@ -279,7 +281,6 @@ foreach($linkovi as $link){
 		}
 
 	}
-
 
 	/* Kolubarske valjevo */
 	if (strpos($link, 'http://www.kolubarske.rs/sr/vesti/valjevo/') !== false) {

@@ -9,17 +9,13 @@ use App\Vesti;
 class WelcomeController extends Controller
 {
 	private $perpage = 9;
+	private $temperatura, $slika;
 
      public function index()
     {
-
+		$this->getWeather();
 		$vesti = Vesti::orderBy('id', 'DESC')->paginate($this->perpage);
-		$newsticker = Vesti::orderBy('id', 'DESC')->paginate($this->perpage);
-		//$vreme = file_get_contents('https://www.weather2umbrella.com/vremenska-prognoza-valjevo-serbia-sr/trenutno');
-		//$crawler = new Crawler($vreme);
-		//$temperatura = $crawler->filterXPath('//*[@id="current_weather_shadow_box"]/div/div[2]/div[2]/div[1]/div[1]/div[3]/p')->text();
-		//$slika = $crawler->filterXPath('//*[@id="current_weather_shadow_box"]/div/div[2]/div[2]/div[1]/div[1]/div[1]/a/img/@src')->text();
-        return view('welcome',['vesti' => $vesti,'search'=>"", 'ticker' => $newsticker, 'temperatura' => '', 'slika' => '']);
+		return view('welcome',['vesti' => $vesti,'search'=>"", 'ticker' => $vesti, 'temperatura' => $this->temperatura, 'slika' => $this->slika ]);
 
     }
 
@@ -36,13 +32,19 @@ class WelcomeController extends Controller
 
 		//ovu su najnovije vesti ya sidebar, da pretraga ne bi uticala na njih
 		$newsticker = Vesti::orderBy('id', 'DESC')->paginate($this->perpage);
-
-		return view('welcome', ['vesti' => $vesti,'search'=>$search, 'ticker' => $newsticker, 'slika' => '', 'temperatura' => '']);
-
-
+		$this->getWeather();
+		
+		return view('welcome', ['vesti' => $vesti,'search'=>$search, 'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
     }
+	
+	private function getWeather(){
+		$vreme = file_get_contents('https://www.weather2umbrella.com/vremenska-prognoza-valjevo-serbia-sr/trenutno');
+		$temperatura = $this->getContents($vreme,'<div class="current_temperature_data hidden-xs" style="color:#f2c600">', '</div>');
+		$this->temperatura = strip_tags($temperatura[0]);
+		$this->slika = "https://www.weather2umbrella.com/wp-content/themes/w2u/image/svg/weather-icons/n01.svg"; //$this->getContents($vreme,'<a onclick="App.scrollTo(\'#weather_per_hour_wrapper\');"><img src="', '"')[0];
+	}
 
-    public function getContents($str, $startDelimiter, $endDelimiter) {
+    private function getContents($str, $startDelimiter, $endDelimiter) {
 		$contents = array();
 		$startDelimiterLength = strlen($startDelimiter);
 		$endDelimiterLength = strlen($endDelimiter);
