@@ -59,13 +59,24 @@ class HomeController extends Controller
 			'cena' => 'required|string',
 			'telefon' => 'required|string|min:4',
 			'naslovnaslika' => 'mimes:jpeg,jpg,png|max:20000',
-			'ostaleslike.*' => 'mimes:jpeg,jpg,png|max:20000',
+			'josslika' => 'array|max:4',
+			'josslika.*' => 'mimes:jpeg,jpg,png|max:20000',
         ]);
+		$attributeNames = array(
+		   'naslov' => 'Naslov',
+		   'text' => 'Tekst oglasa',
+		   'cena' => 'Cena',
+		   'telefon' => 'Telefon',
+		   'naslovnaslika' => 'Naslovna slika',
+		   'josslika' => 'Dodati još slika',
+		   'josslika.*' => 'Dodati još slika',
+		   );
+		   
+		$validator->setAttributeNames($attributeNames);
 
         if ($validator->fails()) {
             return back()->with(["errors" => $validator->errors()->all()]);
         }
-
 		
 		$oglas = Oglasi::create([
 			'user_id' => Auth::user()->id,
@@ -75,6 +86,7 @@ class HomeController extends Controller
 			'cena' => $data['cena'],
 			'telefon' => $data['telefon']
 		]);
+		
 		if(!empty($data['naslovnaslika'])){
 			$slikenalsovna = slikeOglasi::create([
 				'user_id' => Auth::user()->id,
@@ -84,16 +96,14 @@ class HomeController extends Controller
 			]);	
 		}
 		
-		if(!empty($data['ostaleslike'])){
-
-			foreach($data['ostaleslike'] as $osl){
-				
+		if(!empty($data['josslika'])){
+			foreach($data['josslika'] as $osl){
 				$slikenalsovna = slikeOglasi::create([
-						'user_id' => Auth::user()->id,
-						'oglasi_id' => $oglas->id,
-						'slika' => $this->moveslike($osl,$oglas->id),
-						'tip' => 'ostale'
-					]);
+					'user_id' => Auth::user()->id,
+					'oglasi_id' => $oglas->id,
+					'slika' => $this->moveslike($osl,$oglas->id),
+					'tip' => 'ostale'
+				]);
 			}
 		}
 		

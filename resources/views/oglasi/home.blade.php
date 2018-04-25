@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="novioglas">Creiraj novi oglas</a> </div>
+                <div class="panel-heading"><a href="{{ url('/') }}/novioglas">Creiraj novi oglas</a> </div>
 
 					<div class="search">
-						<form  action="homeoglasisearch" method="get" enctype="multipart/form-data" >
+						<form  action="{{ url('/') }}/homeoglasisearch" method="get" enctype="multipart/form-data" >
 							<input type="text"  name="search" value="{{ $search }}"  placeholder="Pretraga"/>
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -46,7 +46,7 @@
 									<p>naslovna : Grb-Grad-Valjevo </p>	
 								@endif
 								
-								<a href="obrisioglas/{{ $oglas->id }}">Obrisi oglas</a>
+								<a href="{{ url('/') }}/obrisioglas/{{ $oglas->id }}">Obrisi oglas</a>
 				
 							<hr>
 						@endforeach 

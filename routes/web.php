@@ -16,6 +16,7 @@ Route::get('search', 'WelcomeController@search');
 
 Route::get('oglasinaslovna', 'WelcomeController@indexOglasi');
 Route::get('searchOglasi', 'WelcomeController@searchOglasi');
+Route::get('searchOglasi/{search}', 'WelcomeController@searchJategortijeOglasi')->name('Pretraga');
 
 Auth::routes();
 

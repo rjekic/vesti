@@ -9,13 +9,14 @@
 
                 <div class="panel-body">
                   
-					@isset($errors)
-						<div class="alert alert-error">
+						
 							@foreach($errors as $error)
+							<div class="alert alert-warning">
 								<p> {{ $error }}  </p>	
+								</div>
 							@endforeach
-						</div>
-					@endisset
+						
+					
 					
 					@if (session('message'))
 						<div class="alert alert-success">
@@ -26,7 +27,7 @@
 					<form action="{{ url('/') }}/createoglas" method="POST" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					
-						<input type="file" name="naslovnaslika" /> Naslovna slika
+						Naslovna slika <input type="file" name="naslovnaslika" /> 
 						<input type="text" name="naslov" placeholder="Naslov" required />
 						<input type="text" name="text" placeholder="Test" required />
 						<select name="kategorija" placeholder="Naslov" >
@@ -37,7 +38,7 @@
 						<input type="text" name="cena" placeholder="Cena" required />
 						<input type="text" name="telefon" value="{{ $user->telefon }}"  placeholder="Telefon" required />
 						
-						<input type="file" name="ostaleslike[]" multiple /> jos slika
+						Dodati još slika <input type="file" name="josslika[]" multiple /> 
 						
 						<input type="submit" value="Napravi oglas" />
 						

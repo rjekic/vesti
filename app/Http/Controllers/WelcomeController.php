@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Vesti;
 use App\Oglasi;
 use App\slikeOglasi;
+use App\KategorijaOglaci;
 
 class WelcomeController extends Controller
 {
@@ -36,7 +37,7 @@ class WelcomeController extends Controller
 		$newsticker = Vesti::orderBy('datum', 'DESC')->paginate($this->perpage);
 		$this->getWeather();
 		
-		return view('welcome', ['vesti' => $vesti,'search'=>$search, 'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
+		return view('welcome', ['vesti' => $vesti,'search'=>$search,'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
     }
 	
 	private function getWeather(){
@@ -70,7 +71,8 @@ class WelcomeController extends Controller
     {
 		$this->getWeather();
 		$res = Oglasi::with('slike')->orderBy('id','DESC')->paginate($this->perpage);
-    	return view('oglasimain',['oglasi' => $res,'search'=>"", 'ticker' => $res, 'temperatura' => $this->temperatura, 'slika' => $this->slika ]);
+		$kategorija = KategorijaOglaci::all();
+    	return view('oglasimain',['oglasi' => $res,'search'=>"",'kategorija'=>$kategorija, 'ticker' => $res, 'temperatura' => $this->temperatura, 'slika' => $this->slika ]);
 
     }
 
@@ -79,13 +81,30 @@ class WelcomeController extends Controller
 
 		$search = $request->input('search');
 
-		$res = Oglasi::where("naslov", "LIKE",'%'.$search.'%')
+		$res = Oglasi::where("kategorija", "LIKE",'%'.$search.'%')
+		->orwhere("naslov", "LIKE",'%'.$search.'%')
 		->orwhere("text", "LIKE",'%'.$search.'%')
 		->orderBy('id', 'DESC')->paginate($this->perpage);
 
+		$kategorija = KategorijaOglaci::all();
 		$newsticker = Vesti::orderBy('datum', 'DESC')->paginate($this->perpage);
 		$this->getWeather();
 		
-		return view('oglasimain', ['oglasi' => $res,'search'=>$search, 'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
+		return view('oglasimain', ['oglasi' => $res,'search'=>$search,'kategorija'=>$kategorija, 'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
+    }
+	
+	public function searchJategortijeOglasi($search)
+    {
+
+		$res = Oglasi::where("kategorija", "LIKE",'%'.$search.'%')
+		->orwhere("naslov", "LIKE",'%'.$search.'%')
+		->orwhere("text", "LIKE",'%'.$search.'%')
+		->orderBy('id', 'DESC')->paginate($this->perpage);
+
+		$kategorija = KategorijaOglaci::all();
+		$newsticker = Vesti::orderBy('datum', 'DESC')->paginate($this->perpage);
+		$this->getWeather();
+		
+		return view('oglasimain', ['oglasi' => $res,'search'=>$search,'kategorija'=>$kategorija, 'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
     }
 }

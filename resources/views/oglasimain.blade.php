@@ -45,12 +45,17 @@
 		@include('partials.articles.article-1-3')
 		@include('partials.articles.article-1-3') -->
 		<div class="search">
-			<form  action="searchOglasi" method="get" enctype="multipart/form-data" >
+			<form  action="{{ url('/') }}/searchOglasi" method="get" enctype="multipart/form-data" >
 				<input type="text"  name="search" value="{{ $search }}"  placeholder="Pretraga oglasi"/>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 			</form>
 		</div>
+		
+		@foreach ($kategorija as $kat)
+			<p><a href="{{ url('/') }}/searchOglasi/{{ $kat->kategorija }}" >{{ $kat->kategorija }}</a></p>
+		@endforeach
+		<br>
 		@foreach ($oglasi as $oglas)
 		<article>
 			<div class="pr">
