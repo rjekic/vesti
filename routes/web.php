@@ -14,6 +14,15 @@
 Route::get('/', 'WelcomeController@index');
 Route::get('search', 'WelcomeController@search');
 
+Route::get('oglasinaslovna', 'WelcomeController@indexOglasi');
+Route::get('searchOglasi', 'WelcomeController@searchOglasi');
+
 Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('nalog');
+Route::get('homeoglasisearch', 'HomeController@homesearchOglasi')->name('Pretraga');
+
+Route::get('novioglas', 'HomeController@novioglas')->name('novoglas');
+Route::post('createoglas', 'HomeController@createOglas');
+Route::get('obrisioglas/{id}', 'HomeController@deleteoglas');
+

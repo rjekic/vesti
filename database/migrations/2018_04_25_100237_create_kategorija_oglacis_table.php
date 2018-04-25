@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOglasisTable extends Migration
+class CreateKategorijaOglacisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateOglasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('oglasis', function (Blueprint $table) {
+        Schema::create('kategorija_oglacis', function (Blueprint $table) {
             $table->increments('id');
-			$table->String('naslov');
-			$table->String('text');
 			$table->String('kategorija');
-			$table->String('cena');
-			$table->String('telefon');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateOglasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oglasis');
+        Schema::dropIfExists('kategorija_oglacis');
     }
 }

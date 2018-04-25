@@ -5,6 +5,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 use Illuminate\Http\Request;
 use App\Vesti;
+use App\Oglasi;
+use App\slikeOglasi;
 
 class WelcomeController extends Controller
 {
@@ -62,4 +64,28 @@ class WelcomeController extends Controller
 
 		return $contents;
 	}
+	
+	 
+	public function indexOglasi()
+    {
+		$this->getWeather();
+		$res = Oglasi::with('slike')->orderBy('id','DESC')->paginate($this->perpage);
+    	return view('oglasimain',['oglasi' => $res,'search'=>"", 'ticker' => $res, 'temperatura' => $this->temperatura, 'slika' => $this->slika ]);
+
+    }
+
+	public function searchOglasi(Request $request)
+    {
+
+		$search = $request->input('search');
+
+		$res = Oglasi::where("naslov", "LIKE",'%'.$search.'%')
+		->orwhere("text", "LIKE",'%'.$search.'%')
+		->orderBy('id', 'DESC')->paginate($this->perpage);
+
+		$newsticker = Vesti::orderBy('datum', 'DESC')->paginate($this->perpage);
+		$this->getWeather();
+		
+		return view('oglasimain', ['oglasi' => $res,'search'=>$search, 'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
+    }
 }

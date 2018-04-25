@@ -1,6 +1,19 @@
 <section class="news green">
 	<!--@include('partials.articles.featured-article')-->
-
+@include('forms.search')
+   <div class="weather">
+        <figure>
+          <img src="{{ $slika }}">
+        </figure>
+        <div>
+          <span>Danas:</span>
+          <i>{{ $temperatura }}C</i>
+          <div class="rec">
+            <span>Preporučujemo:</span>
+            <a href="">Dinamiku svetlosti u pejzažu</a>
+          </div>
+        </div>
+        </div>
 	<div class="row-col-3">
 		<!-- @include('partials.articles.article-1-3')
 		@include('partials.articles.article-1-3')

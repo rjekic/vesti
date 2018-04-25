@@ -132,6 +132,7 @@
 					</ul>
 				</li>
 				<li><a href="">Kontakt</a></li>
+				<li><a href="oglasinaslovna">Oglasi</a>
 			</ul>
 		</div>
 	</div>

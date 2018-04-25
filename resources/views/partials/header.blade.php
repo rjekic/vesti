@@ -25,6 +25,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+									<li><a href="home">Moji oglasi</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -62,20 +63,6 @@
 
 			<div class="col-4">
 
-      <div class="weather">
-        <figure>
-          <img src="{{ $slika }}">
-        </figure>
-        <div>
-          <span>Danas:</span>
-          <i>{{ $temperatura }}C</i>
-          <div class="rec">
-            <span>Preporučujemo:</span>
-            <a href="">Dinamiku svetlosti u pejzažu</a>
-          </div>
-        </div>
-        </div>
-
 				<div class="soc-search">
 					<div class="fl-l">
 						<ul>
@@ -90,7 +77,7 @@
 							<li><a href="">eng</a></li>
 							<li><a href="">lat</a></li>
 						</div>
-						@include('forms.search')
+						
 					</div>
 				</div>
 			</div>			
