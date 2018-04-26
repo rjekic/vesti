@@ -18,12 +18,25 @@ Route::get('oglasinaslovna', 'WelcomeController@indexOglasi');
 Route::get('searchOglasi', 'WelcomeController@searchOglasi');
 Route::get('searchOglasi/{search}', 'WelcomeController@searchJategortijeOglasi')->name('Pretraga');
 
+Route::get('dogadjajinaslovna', 'WelcomeController@indexDogadjaji');
+Route::get('searchDogadjaji', 'WelcomeController@searchDogadjaji');
+
 Auth::routes();
+
+/* Oglasi */
 
 Route::get('home', 'HomeController@index')->name('nalog');
 Route::get('homeoglasisearch', 'HomeController@homesearchOglasi')->name('Pretraga');
 
-Route::get('novioglas', 'HomeController@novioglas')->name('novoglas');
+Route::get('novioglas', 'HomeController@novioglas')->name('novioglas');
 Route::post('createoglas', 'HomeController@createOglas');
 Route::get('obrisioglas/{id}', 'HomeController@deleteoglas');
 
+/* Dogadjaji */
+
+Route::get('homedogadjaji', 'HomeController@homedogadjaji')->name('Dodadjaji');
+Route::get('homedogadjajisearch', 'HomeController@homedogadjajisearch')->name('Pretraga');
+
+Route::get('novidogadjaj', 'HomeController@novidogadjaj')->name('novidogadjaj');
+Route::post('createdogadjaj', 'HomeController@createdogadjaj');
+Route::get('obrisidogadjaj/{id}', 'HomeController@obrisidogadjaj');

@@ -8,12 +8,15 @@ use App\Vesti;
 use App\Oglasi;
 use App\slikeOglasi;
 use App\KategorijaOglaci;
+use App\Dogadjaji;
 
 class WelcomeController extends Controller
 {
 	private $perpage = 9;
 	private $temperatura, $slika;
 
+	/* Naslovana */
+	
      public function index()
     {
 		$this->getWeather();
@@ -65,7 +68,7 @@ class WelcomeController extends Controller
 
 		return $contents;
 	}
-	
+	/* Oglasi main */
 	 
 	public function indexOglasi()
     {
@@ -107,4 +110,33 @@ class WelcomeController extends Controller
 		
 		return view('oglasimain', ['oglasi' => $res,'search'=>$search,'kategorija'=>$kategorija, 'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
     }
+	
+	/* Dogadjaji main */
+	
+	 
+	public function indexDogadjaji()
+    {
+		$this->getWeather();
+		$res = Dogadjaji::orderBy('id','DESC')->paginate($this->perpage);
+	
+    	return view('dogadjajimain',['dogadjaji' => $res,'search'=>"", 'ticker' => $res, 'temperatura' => $this->temperatura, 'slika' => $this->slika ]);
+
+    }
+
+	public function searchDogadjaji(Request $request)
+    {
+
+		$search = $request->input('search');
+
+		$res = Dogadjaji::where("naslov", "LIKE",'%'.$search.'%')
+		->orwhere("text", "LIKE",'%'.$search.'%')
+		->orwhere("datum", "LIKE",'%'.$search.'%')
+		->orderBy('id', 'DESC')->paginate($this->perpage);
+
+		$newsticker = Vesti::orderBy('datum', 'DESC')->paginate($this->perpage);
+		$this->getWeather();
+		
+		return view('dogadjajimain', ['dogadjaji' => $res,'search'=>$search,'ticker' => $newsticker, 'temperatura' => $this->temperatura, 'slika' => $this->slika]);
+    }
+
 }

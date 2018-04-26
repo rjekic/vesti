@@ -806,7 +806,8 @@ function input($data){
 
 	$data = trim($data);
 	$data = stripslashes($data);
-	$data = htmlspecialchars_decode($data);
+	$data = htmlspecialchars($data);
+	//$data = htmlspecialchars_decode($data);
 
 	return $data;
 }
@@ -855,9 +856,8 @@ if(!empty ($errors)){
 	$headers .= "Reply-To: ". $from . "\r\n";
 	$headers .= "MIME-Version: 1.0\r\n";
 	$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-if (mail("jovicicpr@gmail.com", $msubject, $message, $headers) ) {
-	echo "do jaja";
-}
+
+	mail("jovicicpr@gmail.com", $msubject, $message, $headers);
     mail("jekic.va@gmail.com", $msubject, $message, $headers);
 	mail("newbalanceagency@gmail.com", $msubject, $message, $headers);
 

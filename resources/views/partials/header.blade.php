@@ -25,7 +25,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-									<li><a href="home">Moji oglasi</a></li>
+									<li><a href="home">Moji {{ Auth::user()->role }} </a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
